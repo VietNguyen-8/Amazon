@@ -1,5 +1,6 @@
 import { cart } from "../data/cart.js";
 //modules cho phep dung variable tu cac file khac ma khong anh huong den file day
+import { products } from "../data/products.js";
 let productsHTML = '';
 
 
