@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart , addToCart} from "../data/cart.js";
 //modules cho phep dung variable tu cac file khac ma khong anh huong den file day
 import { products } from "../data/products.js";
 let productsHTML = '';
@@ -59,47 +59,32 @@ products.forEach((product)=>{
 
 document.querySelector('.js-product-grid').innerHTML = productsHTML;
 
+function updateCartQuantity(){
+let cartQuantity =0;
+        cart.forEach((cartItem)=>{
+            cartQuantity += cartItem.quantity;
+        });
+
+        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity; 
+}
+
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     let addedMessageTimeoutId;
     button.addEventListener('click',()=>{
         const {productId} = button.dataset//data-product-id;
-        let matchingItem;
-        cart.forEach((item)=>{
-            if(productId===item.productId){
-                matchingItem = item;
-            }
-        });
-        const quantitySelector = document.querySelector(
-        `.js-quantity-selector-${productId}`);
-        const quantity = Number(quantitySelector.value);
-        if(matchingItem)
-        {
-            matchingItem.quantity+=quantity;
-        }else
-        {
-        cart.push({
-            productId,
-            quantity
-        });
-        }
-    
-        let cartQuantity =0;
-        cart.forEach((item)=>{
-            cartQuantity += item.quantity;
-        });
-
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+        addToCart(productId);
+        updateCartQuantity();
         const addedMessage = document.querySelector(
         `.js-added-to-cart-${productId}`
       );
       addedMessage.classList.add('added-to-cart-visible');
       if (addedMessageTimeoutId) {
         clearTimeout(addedMessageTimeoutId);
-      }
+      }//moi lan click reset thoi gian hien thi message
       const timeoutId = setTimeout(() => {
         addedMessage.classList.remove('added-to-cart-visible');
       }, 2000);
-      addedMessageTimeoutId = timeoutId;
+      addedMessageTimeoutId = timeoutId;//luu id de quan li click sau
     });
 });
 //closures: Giữ lại scope của hàm cha, dù hàm cha đã chạy xong
