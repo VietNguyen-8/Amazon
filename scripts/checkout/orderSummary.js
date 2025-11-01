@@ -133,6 +133,7 @@ document.querySelectorAll('.js-update-link')
       );
       container.classList.add('is-editing-quantity');
     });
+   
   });
 
 document.querySelectorAll('.js-save-link')
@@ -162,6 +163,8 @@ document.querySelectorAll('.js-save-link')
     quantityLabel.innerHTML = newQuantity;
 
     updateCartQuantity();
+
+    renderpaymentSummary();
     });
   });
 
