@@ -32,6 +32,10 @@ class Product{
   getPrice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML(){
+    return '';
+  }
 }
 
 const product1 = new Product({
@@ -49,6 +53,20 @@ const product1 = new Product({
       "apparel"
     ]
     });
+class Clothing extends Product{
+  sizeChartLink;
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  extraInfoHTML(){
+    //super.extraInfoHTML();
+    return `<a href = "${this.sizeChartLink} target="_blank">Size chart</a>`
+  }
+};
+
+  console.log(tshirt);
+  tshirt.getPrice();
 
 export const products = [
   {
@@ -730,5 +748,8 @@ export const products = [
     priceCents: 2999
   }
 ].map((productDetails) => {
+  if(productDetails.type === 'clothing'){
+    return new Clothing(productDetails);
+  }
     return new Product(productDetails);//map tung phan tu trong mang ve doi tuong Product roi tra ve mang moi
 });
