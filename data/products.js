@@ -64,10 +64,6 @@ class Clothing extends Product{
     return `<a href = "${this.sizeChartLink} target="_blank">Size chart</a>`
   }
 };
-
-  console.log(tshirt);
-  tshirt.getPrice();
-
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
